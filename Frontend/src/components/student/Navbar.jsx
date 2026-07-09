@@ -1,12 +1,11 @@
 import React, { useContext } from 'react'
 import { assets } from '../../assets/assets'
-import {Link, useNavigate} from 'react-router-dom'
+import {Link} from 'react-router-dom'
 import { useClerk, UserButton, useUser } from '@clerk/react'
 import { AppContext } from '../../context/AppContext'
 
 const Navbar = () => {
-  //const {navigate} = useContext(AppContext)
-  const navigate = useNavigate()
+  const {navigate, isEducator} = useContext(AppContext)
   const isCourseListPage = location.pathname.includes('/course-list')
 
   const {openSignIn} = useClerk()
@@ -17,7 +16,7 @@ const Navbar = () => {
       <div className='hidden md:flex items-center gap-5 text-gray-500'>
         <div className='flex items-center gap-5'>
           {user && <>
-            <button>Become Educator</button>
+            <button onClick={()=>{navigate}}>{isEducator ? "Educator Dachboard": "Become Educator"}</button>
             <Link to='/my-enrollments'>My Enrollments</Link>
           </>}
         </div>
@@ -31,7 +30,7 @@ const Navbar = () => {
       <div className='md:hidden flex items-center gap-2 sm:gap-5 text-gray-500'>
         <div className='flex items-center gap-1 sm:gap-2 max-sm:text-xs'>
           {user && <>
-            <button>Become Educator</button>
+            <button onClick={()=>{navigate}}>{isEducator ? "Educator Dachboard": "Become Educator"}</button>
             <Link to='/my-enrollments'>My Enrollments</Link>
           </>}
         </div>
